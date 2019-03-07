@@ -109,54 +109,23 @@ Reply.prototype.getReply = function (message,intent, entities) {
 
             default:
                 let response;
-
-                //axios.get('https://jsonplaceholder.typicode.com/todos/1')
-                //    .then(response => {
-                //        console.log('njknjk' + response);
-                //    })
-                //    .catch(err => {
-                //        console.log(err);
-                //    });
-
-                request.get('https://jsonplaceholder.typicode.com/todos/1', (err, res, body) => {
-                            if (err) console.log(err);
-                            console.log('njj' + body.json());
-                        });
-
-
-                //https.get('https://jsonplaceholder.typicode.com/todos/1', (err,response)=>{
-
-
-                //})
-           
-
                 try {
                     console.log(resp);
-                    //var db = await MongoClient.connect(db_url, { useNewUrlParser: true });
-                    //var dbo = db.db("botdb");
-                    //var response = await dbo.collection("faq").find({ "Intent": intent.name }, { 'answer': 2, '_id': 0 });
-                    //response.toArray(function (err, result) {
-                    //    console.log("connected: " + intent.name);
-                    //    if (err) throw err;
-                    //    response = result[0].answer;
-                    //    console.log("result" + result[0].answer);
-                    //    db.close;
-                    //}); 
                     
-                    //MongoClient.connect(db_url, { useNewUrlParser: true }, function (err, db) {
-                    //    if (err) throw err;
-                    //    var dbo = db.db("botdb");
-                    //    console.log("connected in default");
-                    //    dbo.collection("faq").find({ "Intent": intent.name }, { 'answer': 2, '_id': 0 }).toArray(function (err, result) {
-                    //        console.log("connected: " + intent.name);
-                    //        if (err) throw err;
-                    //        response = result[0].answer;
-                    //        console.log("result" + result[0].answer);
-                    //        db.close;
+                    MongoClient.connect(db_url, { useNewUrlParser: true }, function (err, db) {
+                        if (err) throw err;
+                        var dbo = db.db("botdb");
+                        console.log("connected in default");
+                        dbo.collection("faq").find({ "Intent": intent.name }, { 'answer': 2, '_id': 0 }).toArray(function (err, result) {
+                            console.log("connected: " + intent.name);
+                            if (err) throw err;
+                            response = result[0].answer;
+                            console.log("result" + result[0].answer);
+                            db.close;
 
-                    //    });
-                    //});
-                    //deasync.loopWhile(() => { console.log('.'); return !response });
+                        });
+                    });
+                    deasync.loopWhile(() => { console.log('.'); return !response });
 
                 } catch (err) {
 
